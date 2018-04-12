@@ -8,7 +8,7 @@ import React, { Component } from 'react';
 import {
   Platform,
   StyleSheet,
-  Text,
+  AsyncStorage,
   View
 } from 'react-native';
 
@@ -20,39 +20,146 @@ const instructions = Platform.select({
 });
 
 type Props = {};
+
+
+export var RootStack = StackNavigator(
+    {
+        Login: {
+            screen: LoginView,
+            navigationOptions: {
+                header: null,
+
+            }
+        },
+        Main: {
+            //  screen: MainView,
+            screen: MainView,
+            /*navigationOptions:  {
+                headerLeft: null }*/
+        },
+
+        initialRouteName: 'MainView',
+
+
+    },
+
+    {
+        headerMode: 'none',
+        mode: 'modal',
+        navigationOptions: {
+            gesturesEnabled: false,
+        },
+        transitionConfig: () => ({
+            transitionSpec: {
+                duration: 0,
+                //  easing: Easing.out(Easing.poly(4)),
+                //  timing: Animated.timing,
+            },
+            screenInterpolator: sceneProps => {
+                const { layout, position, scene } = sceneProps;
+                const { index } = scene;
+
+                const height = layout.initHeight;
+                const translateY = position.interpolate({
+                    inputRange: [index - 1, index, index + 1],
+                    outputRange: [height, 0, 0],
+                });
+
+                const opacity = position.interpolate({
+                    inputRange: [index - 1, index - 0.99, index],
+                    outputRange: [0, 1, 1],
+                });
+
+                return { opacity, transform: [{ translateY }] };
+            },
+        }),
+    }
+
+);
+
+
+export var OptionalStack = StackNavigator(
+    {
+
+        Main: {
+            //  screen: MainView,
+            screen: MainView,
+            /*navigationOptions:  {
+                headerLeft: null }*/
+            navigationOptions: {
+                header: null,
+
+            }
+        },
+        Login: {
+            screen: LoginView,
+            navigationOptions: {
+                header: null,
+
+            }
+        },
+
+        BuyProduct: {
+            //  screen: MainView,
+            screen: BuyProductView,
+            /*navigationOptions:  {
+                headerLeft: null }*/
+        },
+        BarcodeScan: {
+            //  screen: MainView,
+            screen: BarcodeScannerApp,
+            /*navigationOptions:  {
+                headerLeft: null }*/
+        },
+        initialRouteName: 'Main',
+
+
+    },
+
+    {
+        headerMode: 'none',
+        mode: 'modal',
+        navigationOptions: {
+            gesturesEnabled: false,
+        },
+        transitionConfig: () => ({
+            transitionSpec: {
+                duration: 0,
+                //  easing: Easing.out(Easing.poly(4)),
+                //  timing: Animated.timing,
+            },
+            screenInterpolator: sceneProps => {
+                const { layout, position, scene } = sceneProps;
+                const { index } = scene;
+
+                const height = layout.initHeight;
+                const translateY = position.interpolate({
+                    inputRange: [index - 1, index, index + 1],
+                    outputRange: [height, 0, 0],
+                });
+
+                const opacity = position.interpolate({
+                    inputRange: [index - 1, index - 0.99, index],
+                    outputRange: [0, 1, 1],
+                });
+
+                return { opacity, transform: [{ translateY }] };
+            },
+        }),
+    }
+
+);
 export default class App extends Component<Props> {
+  constructor() {
+      super();
+      this.state = {
+
+      }
+
+  }
   render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit App.js
-        </Text>
-        <Text style={styles.instructions}>
-          {instructions}
-        </Text>
-      </View>
-    );
+              return (<RootStack/>);
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
+
