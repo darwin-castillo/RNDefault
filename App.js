@@ -11,6 +11,9 @@ import {
   AsyncStorage,
   View
 } from 'react-native';
+import {NavigationView} from './views/NavigationView'
+import {LoginView} from './views/LoginView'
+import {MainView} from './views/MainView'
 
 const instructions = Platform.select({
   ios: 'IOS: Press Cmd+R to reload,\n' +
@@ -34,6 +37,13 @@ export var RootStack = StackNavigator(
         Main: {
             //  screen: MainView,
             screen: MainView,
+            /*navigationOptions:  {
+                headerLeft: null }*/
+        },
+
+       Navigation: {
+            //  screen: MainView,
+            screen: NavigationView,
             /*navigationOptions:  {
                 headerLeft: null }*/
         },

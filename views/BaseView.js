@@ -7,7 +7,7 @@ export  class BaseView extends Component{
     constructor(){
         super();
         this.state = {
-            content: 'Navigation View'
+           content: 'New Component'
         }
     }
 
