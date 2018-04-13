@@ -14,6 +14,7 @@ import {
 import {NavigationView} from './views/NavigationView'
 import {LoginView} from './views/LoginView'
 import {MainView} from './views/MainView'
+import {StackNavigator} from 'react-navigation'
 
 const instructions = Platform.select({
   ios: 'IOS: Press Cmd+R to reload,\n' +
@@ -27,28 +28,33 @@ type Props = {};
 
 export var RootStack = StackNavigator(
     {
+        Main: {
+            //  screen: MainView,
+            screen: MainView,
+            navigationOptions:  {
+                headerLeft: null,
+                header:null}
+        },
+
         Login: {
             screen: LoginView,
             navigationOptions: {
                 header: null,
+                headerLeft: null,
 
             }
-        },
-        Main: {
-            //  screen: MainView,
-            screen: MainView,
-            /*navigationOptions:  {
-                headerLeft: null }*/
         },
 
        Navigation: {
             //  screen: MainView,
             screen: NavigationView,
-            /*navigationOptions:  {
-                headerLeft: null }*/
+             navigationOptions:  {
+                headerLeft: null,
+                 headerLeft: null,
+             }
         },
 
-        initialRouteName: 'MainView',
+        initialRouteName: 'NavigationView',
 
 
     },
@@ -88,77 +94,7 @@ export var RootStack = StackNavigator(
 );
 
 
-export var OptionalStack = StackNavigator(
-    {
 
-        Main: {
-            //  screen: MainView,
-            screen: MainView,
-            /*navigationOptions:  {
-                headerLeft: null }*/
-            navigationOptions: {
-                header: null,
-
-            }
-        },
-        Login: {
-            screen: LoginView,
-            navigationOptions: {
-                header: null,
-
-            }
-        },
-
-        BuyProduct: {
-            //  screen: MainView,
-            screen: BuyProductView,
-            /*navigationOptions:  {
-                headerLeft: null }*/
-        },
-        BarcodeScan: {
-            //  screen: MainView,
-            screen: BarcodeScannerApp,
-            /*navigationOptions:  {
-                headerLeft: null }*/
-        },
-        initialRouteName: 'Main',
-
-
-    },
-
-    {
-        headerMode: 'none',
-        mode: 'modal',
-        navigationOptions: {
-            gesturesEnabled: false,
-        },
-        transitionConfig: () => ({
-            transitionSpec: {
-                duration: 0,
-                //  easing: Easing.out(Easing.poly(4)),
-                //  timing: Animated.timing,
-            },
-            screenInterpolator: sceneProps => {
-                const { layout, position, scene } = sceneProps;
-                const { index } = scene;
-
-                const height = layout.initHeight;
-                const translateY = position.interpolate({
-                    inputRange: [index - 1, index, index + 1],
-                    outputRange: [height, 0, 0],
-                });
-
-                const opacity = position.interpolate({
-                    inputRange: [index - 1, index - 0.99, index],
-                    outputRange: [0, 1, 1],
-                });
-
-                return { opacity, transform: [{ translateY }] };
-            },
-        }),
-    }
-
-);
 export default class App extends Component<Props> {
   constructor() {
       super();

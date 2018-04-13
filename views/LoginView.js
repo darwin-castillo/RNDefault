@@ -3,7 +3,7 @@ import {Text} from 'react-native';
 
 
 
-export  class BaseView extends Component{
+export  class LoginView extends Component{
     constructor(){
         super();
         this.state = {

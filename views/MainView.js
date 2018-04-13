@@ -2,11 +2,14 @@ import React, { Component } from 'react';
 import {
     Text,
      AsyncStorage,
+    View,
+    ImageBackground,
+    StyleSheet,
  } from 'react-native';
 
 
 
-export  class BaseView extends Component{
+export  class MainView extends Component{
     constructor(){
         super();
         this.state = {
@@ -14,7 +17,7 @@ export  class BaseView extends Component{
             LoggedIn: false,
         }
 
-        setTimeout(
+
         this.getAccessToken().then((resp)=>{
             // ToastAndroid.show('Token: '+resp,ToastAndroid.SHORT);
 
@@ -24,7 +27,7 @@ export  class BaseView extends Component{
                 this.setState({LoggedIn: true});
         })
 
-    ,2000);
+
 
 
     }
@@ -32,7 +35,11 @@ export  class BaseView extends Component{
 
     render(){
         return(
-            <Text>{this.state.content}</Text>
+            <ImageBackground resizeMode='cover' style={styles.container} /*source={require('./app_movil.png')}*/
+            >
+
+                <Text>Splash Screen</Text>
+            </ImageBackground>
         );
     }
 
@@ -49,3 +56,13 @@ export  class BaseView extends Component{
 
 
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        backgroundColor: '#F5FCFF',
+    },
+
+}
+);

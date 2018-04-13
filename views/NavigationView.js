@@ -3,7 +3,7 @@ import {Text} from 'react-native';
 
 
 
-export  class BaseView extends Component{
+export  class NavigationView extends Component{
     constructor(){
         super();
         this.state = {
