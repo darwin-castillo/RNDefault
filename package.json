@@ -10,7 +10,9 @@
   "dependencies": {
     "react": "16.3.1",
     "react-native": "0.55.2",
-    "react-navigation": "^1.5.11"
+    "react-navigation": "^1.5.11",
+    "react-native-tooltip": "^5.2.0",
+    "react-native-popover-tooltip": "latest"
   },
   "devDependencies": {
     "babel-jest": "22.4.3",

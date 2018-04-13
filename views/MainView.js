@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 import {
     Text,
      AsyncStorage,
-    View,
     ImageBackground,
-    ToastAndroid,
     StyleSheet,
+
  } from 'react-native';
 
 
@@ -20,23 +19,21 @@ export  class MainView extends Component{
 
 
         this.getAccessToken().then((resp)=>{
-            // ToastAndroid.show('Token: '+resp,ToastAndroid.SHORT);
-
             if(resp==null)
                 this.setState({LoggedIn: false});
             else
                 this.setState({LoggedIn: true});
         })
 
-      /*  setTimeout(() => {
+    setTimeout(() => {
             if(this.state.LoggedIn){
-                this.props.navigation.navigate('Login');
-            }
-            else{
                 this.props.navigation.navigate('Navigation');
             }
+            else{
+                this.props.navigation.navigate('Login');
+            }
         }, 3000);
-*/
+
     }
 
 
@@ -44,9 +41,7 @@ export  class MainView extends Component{
         return(
             <ImageBackground resizeMode='cover' style={styles.container}source={require('./../assets/images/splash_example.gif')}
             >
-
-                <Text style={{color:'#fff'}}></Text>
-
+                <Text style={{color:'#fff'}}>Splash Screen</Text>
             </ImageBackground>
         );
     }
