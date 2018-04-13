@@ -17,7 +17,6 @@ export  class LoginView extends Component{
         super();
         this.state = {
             content: 'Login',
-
             user: '',
             password: '',
             modalVisible: false,
