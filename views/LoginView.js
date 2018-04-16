@@ -6,6 +6,9 @@ import {Text,
         StyleSheet,
 } from 'react-native';
 import PopoverTooltip from 'react-native-popover-tooltip';
+import ApiConnect from "../components/common/ApiConnect";
+import {Dialogs} from "../components/common/AlertMessage";
+
 
 
 
@@ -14,8 +17,8 @@ export  class LoginView extends Component{
         super();
         this.state = {
             content: 'Login',
-            user: '',
-            password: '',
+            user: 'darwin.c5@gmail.com',
+            password: '123456',
             modalVisible: false,
             isLoading: true,
             mesg: 'nada',
@@ -125,7 +128,18 @@ export  class LoginView extends Component{
 
     Login(){
 
+      console.log('login validate');
         if (this.validateInputs()) {
+            let body = {
+                username: this.state.user,
+                password:this.state.password
+            };
+         let strBody = JSON.stringify(body);
+         console.log('body '+strBody);
+             ApiConnect.RequestApi('POST', 'login',strBody).then((response)=>{
+                Dialogs.SimpleAlert('Respuesta API',JSON.stringify(response));
+              // console.log('vamos que si campeon '+JSON.stringify(response));
+             })
 
         }
     }
