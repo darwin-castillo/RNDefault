@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
 import {Text,
         TextInput,
-        Modal,
         TouchableHighlight,
         ImageBackground,
-        View,
-        Button,
         StyleSheet,
 } from 'react-native';
 import PopoverTooltip from 'react-native-popover-tooltip';
@@ -41,23 +38,6 @@ export  class LoginView extends Component{
     render(){
         return(
             <ImageBackground resizeMode='cover' style={styles.container}>
-
-                <Modal
-                    visible={this.state.modalVisible}
-                    animationType={'slide'}
-                    onRequestClose={() => this.closeModal()}
-                >
-
-                    <View style={styles.modalText}>
-                        <View style={styles.modalText}>
-                            <Text>{this.state.mesg}</Text>
-                            <Button
-                                onPress={() => this.closeModal()}
-                                title="Close modal">
-                            </Button>
-                        </View>
-                    </View>
-                </Modal>
 
 
                 <PopoverTooltip
@@ -157,7 +137,7 @@ export  class LoginView extends Component{
     validateInputs(): boolean {
         var ms_pass = '';
         var ms_usr = '';
-        if (this.state.password == null || this.state.password == '') {
+        if (this.state.password == null || this.state.password === '') {
             ms_pass = 'Debe ingresar la contraseña para iniciar sesion';
             this.setState({tooltip_msg_pass: ms_pass});
             this.refs['tooltip_pass'].toggle();
@@ -187,17 +167,13 @@ export  class LoginView extends Component{
 
     }
 
-
-
 }
-
 
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
-
         backgroundColor: '#0f120b',
     },
     img: {
@@ -229,7 +205,6 @@ const styles = StyleSheet.create({
         marginRight: 8,
         marginTop: 4,
         /* borderColor: '#ffff000',*/
-
     },
 
     submit: {
