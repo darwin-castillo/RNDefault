@@ -1,12 +1,13 @@
 import {Component} from 'react'
 import {
-    Alert, AsyncStorage,
-    NativeModules, Platform,
-    Promise as reject,
-    Promise as resolve, ToastAndroid
+    Alert,
+    AsyncStorage,
+    NativeModules,
+    Platform,
 } from "react-native";
 import {StorageConnect} from "./StorageConnect";
 import {Dialogs} from "./AlertMessage";
+const RNFetchssl = NativeModules.RNFetchssl;
 
 
 export var apiUrl = "https://club.zippyttech.com:8080/api/";
@@ -22,6 +23,13 @@ const platf = Platform.select({
 
 
 export const ApiConnect = {
+
+    headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        'Cache-Control': 'no-cache',
+        Authorization: Bearer
+    },
 
     getStorageByKey(key) {
         this.searchKey(key).then((resp) => {
@@ -45,30 +53,44 @@ export const ApiConnect = {
         this.getStorageByKey('access_token');
        // endpoint = apiUrl + endpoint;
         method = method.toLowerCase();
-
+        let Url = apiUrl + endpoint;
 
         return (
             this.searchKey('access_token').then((resp) => {
-                    let heads = {
-                        Accept: 'application/json',
-                        'Content-Type': 'application/json',
-                        'Cache-Control': 'no-cache',
-                    };
+                let heads = {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                    'Cache-Control': 'no-cache',
+                };
 
-                    console.log('there is access_token '+resp);
-                    if(resp!=null && !('Authorization' in heads))
-                        heads.Authorization = "Bearer " + resp;
+                console.log('there is access_token ' + resp);
+                if (resp != null && !('Authorization' in heads))
+                    heads.Authorization = "Bearer " + resp;
 
-                    console.log('el body es '+payload);
-                       return  this.FetchingData(method,endpoint,payload)
-                           .then((resolve)=> resolve.json())
-                           .then( (resolveJson) =>{
-                               console.log(JSON.stringify(resolveJson));
-                               return resolveJson
-                               }
+                console.log('el body es ' + payload);
 
-                           );
+                if (platf === 1){
+                    return this.FetchingData(method, endpoint, payload)
+                        .then((resolve) => resolve.json())
+                        .then((resolveJson) => {
+                                console.log(JSON.stringify(resolveJson));
+                                return resolveJson
+                            }
+                        );
+            }
+            else if(platf === 2){
+                    if (method === 'post')
+                        return NativeModules.RNFetchssl.post(Url,
+                            payload, this.headers);
+                    else if (method === 'get')
+                        return NativeModules.RNFetchssl.get(Url, this.headers);
+                    else if (method === 'put')
+                        return NativeModules.RNFetchssl.put(Url,
+                            payload, this.headers);
+                    else if (method === 'delete')
+                        return NativeModules.RNFetchssl.delete(Url, this.headers);
 
+                }
 
                 }
             )); // end RETURN
@@ -76,9 +98,9 @@ export const ApiConnect = {
 
 
     FetchingData(method: string, endpoint: string, payload: any): Promise<Response> {
+let Url = apiUrl + endpoint;
 
-        if (platf === 1){
-            return fetch(apiUrl + endpoint, {
+            return fetch(Url, {
                 method: method,
                 headers: {
                     Accept: 'application/json',
@@ -97,10 +119,8 @@ export const ApiConnect = {
                 // ADD THIS THROW error
                 throw reason;
             })
-    }
-    else if(platf === 2){
-            Dialogs.SimpleAlert('aja','Pruebe con fetchssl mijo');
-        }
+
+
     },
 
 }

@@ -1,4 +1,6 @@
 rootProject.name = 'RNDefault'
 
+include ':react-native-fetchssl'
+project(':react-native-fetchssl').projectDir = new File(rootProject.projectDir, '../react-native-fetchssl/android')
 include ':app'
 
