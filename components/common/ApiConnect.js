@@ -1,20 +1,15 @@
 import {Component} from 'react'
 import {
-    Alert,
     AsyncStorage,
     NativeModules,
     Platform,
 } from "react-native";
-import {StorageConnect} from "./StorageConnect";
 import {Dialogs} from "./AlertMessage";
-const RNFetchssl = NativeModules.RNFetchssl;
-
-
-export var apiUrl = "https://club.zippyttech.com:8080/api/";
+export var apiUrl = "https://club.zippyttech.com:8080/api/"; //URL BASE
 let Response = "";
 export var Bearer = "";
 
-const platf = Platform.select({
+const platform = Platform.select({
     ios: 1,
     android: 2,
 });
@@ -68,8 +63,10 @@ export const ApiConnect = {
                     heads.Authorization = "Bearer " + resp;
 
                 console.log('el body es ' + payload);
-
-                if (platf === 1){
+                /**
+                 * Fetch IOS
+                 */
+                if (platform === 1){
                     return this.FetchingData(method, endpoint, payload)
                         .then((resolve) => resolve.json())
                         .then((resolveJson) => {
@@ -78,7 +75,11 @@ export const ApiConnect = {
                             }
                         );
             }
-            else if(platf === 2){
+
+                /**
+                 * Fetch Android
+                 */
+            else if(platform === 2){
                     if (method === 'post')
                         return NativeModules.RNFetchssl.post(Url,
                             payload, this.headers);
@@ -117,6 +118,7 @@ let Url = apiUrl + endpoint;
             }).catch((reason) => {
                 console.log('There has been a problem with your fetch operation: ' + reason.message);
                 // ADD THIS THROW error
+                Dialogs.SimpleAlert('ERROR',''+reason.message);
                 throw reason;
             })
 
