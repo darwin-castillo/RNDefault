@@ -14,6 +14,7 @@ import {
 import {NavigationView} from './views/NavigationView'
 import {LoginView} from './views/LoginView'
 import {MainView} from './views/MainView'
+import {Example} from './components/common/spinnerexp'
 import {StackNavigator} from 'react-navigation'
 
 const instructions = Platform.select({
@@ -54,6 +55,15 @@ export var RootStack = StackNavigator(
              }
         },
 
+
+       Example: {
+            //  screen: MainView,
+            screen: Example,
+            navigationOptions:  {
+                headerLeft: null,
+                headerLeft: null,
+            }
+        },
         initialRouteName: 'NavigationView',
 
 

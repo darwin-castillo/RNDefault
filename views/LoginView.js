@@ -117,13 +117,17 @@ export  class LoginView extends Component{
                 />
                 <TouchableHighlight
                     style={styles.submit}
-                    onPress={() => this.Login() /*this.AlternativeLogin()*/}
+                    onPress={() => this.Login2() /*this.AlternativeLogin()*/}
                     underlayColor='#fff'>
                     <Text style={[styles.submitText]}>INGRESAR</Text>
                 </TouchableHighlight>
 
             </ImageBackground>
         );
+    }
+
+    Login2(){
+        this.props.navigation.navigate('Example');
     }
 
     Login(){

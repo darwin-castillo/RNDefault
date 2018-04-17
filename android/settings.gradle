@@ -1,4 +1,6 @@
 rootProject.name = 'RNDefault'
+include ':react-native-spinkit'
+project(':react-native-spinkit').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-spinkit/android')
 
 include ':react-native-fetchssl'
 project(':react-native-fetchssl').projectDir = new File(rootProject.projectDir, '../react-native-fetchssl/android')
